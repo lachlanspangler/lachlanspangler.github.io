@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lachlan Spangler — software &amp; quant</title>
+    <meta name="description" content="Lachlan Spangler — software engineer and quantitative developer. Low-latency systems, market microstructure, and machine learning." />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <canvas id="bg" aria-hidden="true"></canvas>
+
+    <header class="nav">
+      <a class="mark" href="#top">LS</a>
+      <nav>
+        <a href="#work">Work</a>
+        <a href="#projects">Projects</a>
+        <a href="#awards">Awards</a>
+        <a href="#education">Education</a>
+        <a href="#about">About</a>
+      </nav>
+      <a class="mail" href="mailto:lachlan.spangler@gmail.com">lachlan.spangler@gmail.com ↗</a>
+    </header>
+
+    <main>
+      <section id="top" class="hero">
+        <p class="eyebrow">Index / 2026</p>
+        <h1>Software engineer<br />&amp; quantitative developer.</h1>
+        <p class="lede">
+          SDE at Amazon Global Logistics. I build low-latency systems, trading
+          infrastructure, and market-microstructure tooling — and I like the
+          places where clean engineering meets markets.
+        </p>
+        <a class="explore" href="#work">Explore ↘</a>
+      </section>
+
+      <section id="work" class="block">
+        <div class="block-head"><span class="idx">01</span><h2>Work</h2></div>
+        <ol class="entries">
+          <li>
+            <div class="e-role"><h3>Software Development Engineer I</h3><span class="e-when">Jun 2025 — Present</span></div>
+            <p class="e-org">Amazon · Global Logistics (Domestic First Mile)</p>
+            <ul>
+              <li>Sole designer/implementer of <b>Pricing Granularity</b>, a pricing-engine extension for per-carrier, per-weight, per-zone markup resolution — unlocking ~$22MM in annual gross profit and FedEx onboarding.</li>
+              <li>Delivered 120+ change sets across 21 packages, 20 services, 8 languages — #1 in code velocity on a 10-person team, #2 in review quality (1.2 revisions/CR).</li>
+              <li>Authored ~7,000 lines of integration tests gating a CD pipeline; root-caused 100+ production tickets; mentored an SDE and an intern.</li>
+            </ul>
+          </li>
+          <li>
+            <div class="e-role"><h3>Quantitative Software Engineer</h3><span class="e-when">Jul 2024 — Jun 2025</span></div>
+            <p class="e-org">Skunkworks Software · stealth quantitative startup</p>
+            <ul>
+              <li>Built automated trading infrastructure across futures, ETFs, and options — signal generation and execution logic against multi-asset market-data feeds.</li>
+              <li>Shipped a real-time analytics dashboard surfacing market breadth, internals, and sector rotation.</li>
+            </ul>
+          </li>
+          <li>
+            <div class="e-role"><h3>Hedge Fund Software Engineer</h3><span class="e-when">May — Jul 2024</span></div>
+            <p class="e-org">Rimrock Capital Management</p>
+            <ul>
+              <li>Built Python/Redis predictive models forecasting consumption and wage growth over a 3-year horizon to inform macro positioning at a multi-billion-dollar fixed-income fund.</li>
+              <li>Received an analyst return offer (1 of 6 on the team).</li>
+            </ul>
+          </li>
+          <li>
+            <div class="e-role"><h3>QA Software Engineer Intern</h3><span class="e-when">May — Aug 2023</span></div>
+            <p class="e-org">iTrust Capital · crypto IRA platform</p>
+            <ul>
+              <li>Owned end-to-end QA for a platform serving 300K+ accounts across iOS and web; built regression automation with Robot Framework, Selenium, and Chrome WebDriver.</li>
+            </ul>
+          </li>
+          <li>
+            <div class="e-role"><h3>Software Engineer Intern</h3><span class="e-when">May — Aug 2022</span></div>
+            <p class="e-org">Bridge Diagnostics (acquired by Olyntis AI)</p>
+            <ul>
+              <li>Built internal sales-automation in Java and Power Apps for ~80 field technicians serving a 200K-client base, with Power BI reporting dashboards.</li>
+            </ul>
+          </li>
+        </ol>
+      </section>
+
+      <section id="projects" class="block">
+        <div class="block-head"><span class="idx">02</span><h2>Projects</h2></div>
+        <div class="cards">
+          <a class="card" href="https://github.com/lachlanspangler/hft-matching-engine" target="_blank" rel="noreferrer">
+            <h3>hft-matching-engine ↗</h3>
+            <p>Low-latency C++20 limit-order-book engine with a lock-free SPSC ring and a latency-benchmark harness — 2.1× throughput over the baseline and a measured p50/p99/p99.9 tick-to-trade.</p>
+            <span class="tags">C++ · lock-free · benchmarking</span>
+          </a>
+          <a class="card" href="https://github.com/lachlanspangler/market-maker" target="_blank" rel="noreferrer">
+            <h3>Market Making Arena ↗</h3>
+            <p>Multiplayer market-making game on Cloudflare Workers/Durable Objects — WebSocket turns, matchmaking, reconnect, and self-play-trained RL bots served from KV.</p>
+            <span class="tags">Workers · WebSockets · RL</span>
+          </a>
+          <a class="card" href="https://github.com/lachlanspangler/OrderBookSim" target="_blank" rel="noreferrer">
+            <h3>OrderBookSim ↗</h3>
+            <p>C++ price-time-priority order book with Python bindings, exchange/market-data latency modeling, and TrueFX/Hawkes replay. Beat TWAP on 3/4 FX pairs with ~100% completion.</p>
+            <span class="tags">C++ · pybind11 · execution</span>
+          </a>
+          <a class="card" href="https://github.com/lachlanspangler/job-finder" target="_blank" rel="noreferrer">
+            <h3>Job Finder ↗</h3>
+            <p>Daily scanner for software &amp; quant roles across 44 top firms via the Greenhouse/Ashby/Lever APIs, with a live dashboard and self-updating digest.</p>
+            <span class="tags">Python · static site · automation</span>
+          </a>
+          <a class="card" href="https://github.com/lachlanspangler" target="_blank" rel="noreferrer">
+            <h3>Algory Capital — Quant Team Lead ↗</h3>
+            <p>Managed $200K of Emory's endowment in the Quantitative Division — 75% L/S hedged equity, 25% global-macro leveraged ETFs/options.</p>
+            <span class="tags">portfolio · macro · L/S equity</span>
+          </a>
+        </div>
+      </section>
+
+      <section id="awards" class="block">
+        <div class="block-head"><span class="idx">03</span><h2>Awards &amp; Competitions</h2></div>
+        <ul class="awards">
+          <li><span>UChicago Trading Competition</span><em>Team Captain · Top 10</em></li>
+          <li><span>Stevens High-Frequency Trading Competition</span><em>Top 10</em></li>
+          <li><span>Kaggle Computer Vision</span><em>Top 0.1%</em></li>
+          <li><span>AI Math Olympiad 3</span><em>Top 15%</em></li>
+        </ul>
+      </section>
+
+      <section id="education" class="block">
+        <div class="block-head"><span class="idx">04</span><h2>Education</h2></div>
+        <div class="edu">
+          <div class="e-role"><h3>Emory University · Goizueta Business School</h3><span class="e-when">Aug 2021 — May 2025</span></div>
+          <p class="e-org">B.B.A. in Computer Science &amp; Finance · GPA 3.98/4.00 · Summa Cum Laude</p>
+          <p class="muted">Coursework: Deep Learning on Graphs · Quantum Computing · AI &amp; Simulations · Computer Graphics · Probability · Statistics</p>
+        </div>
+      </section>
+
+      <section id="about" class="block">
+        <div class="block-head"><span class="idx">05</span><h2>About</h2></div>
+        <p class="about">
+          I'm a software engineer and quantitative developer based in Minneapolis.
+          My work sits at the intersection of systems engineering and markets —
+          matching engines, execution, and trading infrastructure. Outside of
+          that: futures trading, piano, four marathons, beach volleyball, scuba,
+          and travel (triple citizenship).
+        </p>
+        <div class="skills">
+          <div><h4>Languages</h4><p>Python · C++ · Swift · Java · C · SQL · JavaScript · TypeScript · Bash</p></div>
+          <div><h4>Backend / Cloud</h4><p>AWS · GraphQL · REST · Flask · Cloudflare Workers · Durable Objects · WebSockets · SQLite</p></div>
+          <div><h4>Engineering</h4><p>CI/CD · Testing · Monitoring · Data pipelines · Low-latency systems · pybind11 · NumPy/Pandas</p></div>
+        </div>
+      </section>
+    </main>
+
+    <footer id="contact">
+      <div class="foot-links">
+        <a href="mailto:lachlan.spangler@gmail.com">Email ↗</a>
+        <a href="https://github.com/lachlanspangler" target="_blank" rel="noreferrer">GitHub ↗</a>
+        <a href="https://linkedin.com/in/lachlan-spangler" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+      </div>
+      <p class="copy">© 2026 Lachlan Spangler</p>
+    </footer>
+
+    <script src="./main.js" defer></script>
+  </body>
+</html>
