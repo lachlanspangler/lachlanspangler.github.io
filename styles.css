@@ -232,12 +232,6 @@ footer { max-width: 1080px; margin: 0 auto; padding: 46px 28px 64px; display: fl
 .game-embed-frame { display: block; width: 100%; height: 760px; border: 0; background: #000; }
 @media (max-width: 640px) { .game-embed-frame { height: 560px; } }
 
-/* hero cityscape band */
-.hero-band { position: relative; margin-top: 44px; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); line-height: 0; }
-.hero-band::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,11,15,0.55), transparent 40%, rgba(124,140,255,0.18)); pointer-events: none; }
-.hero-band img { width: 100%; height: 300px; object-fit: cover; display: block; filter: saturate(1.1); transition: transform 6s ease; }
-.hero-band:hover img { transform: scale(1.06); }
-
 /* section-head accent illustrations */
 .block-head { flex-wrap: wrap; }
 .block-head .head-illo { margin-left: auto; align-self: center; width: 175px; border-radius: 12px; opacity: 0.9; }
