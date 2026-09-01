@@ -68,20 +68,14 @@
           places where clean engineering meets markets.
         </p>
         <a class="explore" href="#work">Explore ↘</a>
-        <div class="hero-band"><img src="./assets/city.gif" alt="" loading="lazy" /></div>
       </section>
 
       <section id="work" class="block">
         <div class="block-head"><span class="idx">01</span><h2>Work</h2></div>
-        <div class="logos" id="logos">
-          <span data-src="./assets/logos/amazon.gif" data-name="Amazon"></span>
-          <span data-src="./assets/logos/itrust.jpg" data-name="iTrust Capital"></span>
-          <span data-src="./assets/logos/rimrock.jpg" data-name="Rimrock"></span>
-          <span data-src="./assets/logos/olyntis.jpg" data-name="Olyntis"></span>
-          <span data-src="./assets/logos/emory.png" data-name="Emory"></span>
-        </div>
         <ol class="entries">
           <li>
+            <img class="e-logo" src="./assets/logos/amazon.gif" alt="Amazon" loading="lazy" />
+            <div class="e-body">
             <div class="e-role"><h3>Software Development Engineer I</h3><span class="e-when">Jun 2025 — Present</span></div>
             <p class="e-org">Amazon · Global Logistics (Domestic First Mile)</p>
             <ul>
@@ -89,36 +83,49 @@
               <li>Delivered 120+ change sets across 21 packages, 20 services, 8 languages — #1 in code velocity on a 10-person team, #2 in review quality (1.2 revisions/CR).</li>
               <li>Authored ~7,000 lines of integration tests gating a CD pipeline; root-caused 100+ production tickets; mentored an SDE and an intern.</li>
             </ul>
+            </div>
           </li>
           <li>
+            <div class="e-logo e-mono">SS</div>
+            <div class="e-body">
             <div class="e-role"><h3>Quantitative Software Engineer</h3><span class="e-when">Jul 2024 — Jun 2025</span></div>
             <p class="e-org">Skunkworks Software · stealth quantitative startup</p>
             <ul>
               <li>Built automated trading infrastructure across futures, ETFs, and options — signal generation and execution logic against multi-asset market-data feeds.</li>
               <li>Shipped a real-time analytics dashboard surfacing market breadth, internals, and sector rotation.</li>
             </ul>
+            </div>
           </li>
           <li>
+            <img class="e-logo" src="./assets/logos/rimrock.jpg" alt="Rimrock Capital Management" loading="lazy" />
+            <div class="e-body">
             <div class="e-role"><h3>Hedge Fund Software Engineer</h3><span class="e-when">May — Jul 2024</span></div>
             <p class="e-org">Rimrock Capital Management</p>
             <ul>
               <li>Built Python/Redis predictive models forecasting consumption and wage growth over a 3-year horizon to inform macro positioning at a multi-billion-dollar fixed-income fund.</li>
               <li>Received an analyst return offer (1 of 6 on the team).</li>
             </ul>
+            </div>
           </li>
           <li>
+            <img class="e-logo" src="./assets/logos/itrust.jpg" alt="iTrust Capital" loading="lazy" />
+            <div class="e-body">
             <div class="e-role"><h3>QA Software Engineer Intern</h3><span class="e-when">May — Aug 2023</span></div>
             <p class="e-org">iTrust Capital · crypto IRA platform</p>
             <ul>
               <li>Owned end-to-end QA for a platform serving 300K+ accounts across iOS and web; built regression automation with Robot Framework, Selenium, and Chrome WebDriver.</li>
             </ul>
+            </div>
           </li>
           <li>
+            <img class="e-logo" src="./assets/logos/olyntis.jpg" alt="Olyntis AI" loading="lazy" />
+            <div class="e-body">
             <div class="e-role"><h3>Software Engineer Intern</h3><span class="e-when">May — Aug 2022</span></div>
             <p class="e-org">Bridge Diagnostics (acquired by Olyntis AI)</p>
             <ul>
               <li>Built internal sales-automation in Java and Power Apps for ~80 field technicians serving a 200K-client base, with Power BI reporting dashboards.</li>
             </ul>
+            </div>
           </li>
         </ol>
       </section>
@@ -164,8 +171,8 @@
             <span class="metric">walk-forward validated · sim-tested</span>
             <span class="tags">modeling · simulation · backtesting</span>
           </a>
-          <a class="card" href="./games/pacman/index.htm" target="_blank" rel="noreferrer">
-            <h3>Pac-Man — HTML5 Canvas ↗</h3>
+          <a class="card game-card" href="./games/pacman/index.htm" data-game="./games/pacman/index.htm">
+            <h3>Pac-Man — HTML5 Canvas ▶</h3>
             <p>A playable Pac-Man built on the HTML5 Canvas — keyboard and touch controls, sound, and a local highscore board. Hosted right here on the site; click to play.</p>
             <span class="metric">playable in-browser · no install</span>
             <span class="tags">JavaScript · Canvas · game</span>
@@ -217,6 +224,20 @@
         </div>
       </section>
     </main>
+
+    <!-- In-page game player -->
+    <div id="game-modal" class="game-modal" hidden>
+      <div class="game-modal-inner">
+        <div class="game-modal-bar">
+          <span class="game-modal-title">Pac-Man — HTML5 Canvas</span>
+          <div class="game-modal-actions">
+            <a id="game-open" href="./games/pacman/index.htm" target="_blank" rel="noreferrer">Open in new tab ↗</a>
+            <button id="game-close" type="button" aria-label="Close game">✕</button>
+          </div>
+        </div>
+        <div class="game-frame-wrap"><iframe id="game-frame" title="Pac-Man" allow="autoplay"></iframe></div>
+      </div>
+    </div>
 
     <footer id="contact">
       <div class="foot-links">
