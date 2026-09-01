@@ -134,14 +134,14 @@
 // Company logos with graceful fallback: Clearbit -> favicon -> monogram.
 (function () {
   document.querySelectorAll("#logos > span").forEach((s) => {
-    const { domain, name } = s.dataset;
+    const { domain, name, src } = s.dataset;
     const tile = document.createElement("div");
     tile.className = "logo-tile";
     const img = document.createElement("img");
     img.alt = name;
     img.loading = "lazy";
-    img.src = `https://logo.clearbit.com/${domain}`;
-    let stage = 0;
+    let stage = src ? 2 : 0; // local file -> only fall back to monogram
+    img.src = src || `https://logo.clearbit.com/${domain}`;
     img.onerror = () => {
       if (stage === 0) {
         stage = 1;
