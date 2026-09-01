@@ -40,7 +40,6 @@
         <a href="#awards">Awards</a>
         <a href="#education">Education</a>
         <a href="#about">About</a>
-        <a href="#play">Play</a>
       </nav>
       <button class="index-btn" id="index-open" aria-label="Open index">Index <span>↗</span></button>
     </header>
@@ -54,8 +53,7 @@
         <li><a href="#awards"><span class="n">03</span> Awards <em>↗</em></a></li>
         <li><a href="#education"><span class="n">04</span> Education <em>↗</em></a></li>
         <li><a href="#about"><span class="n">05</span> About <em>↗</em></a></li>
-        <li><a href="#play"><span class="n">06</span> Play <em>↗</em></a></li>
-        <li><a href="#contact"><span class="n">07</span> Contact <em>↗</em></a></li>
+        <li><a href="#contact"><span class="n">06</span> Contact <em>↗</em></a></li>
       </ol>
       <a class="index-mail" href="mailto:lachlan.spangler@gmail.com">lachlan.spangler@gmail.com ↗</a>
     </div>
@@ -166,6 +164,12 @@
             <span class="metric">walk-forward validated · sim-tested</span>
             <span class="tags">modeling · simulation · backtesting</span>
           </a>
+          <a class="card" href="./games/pacman/index.htm" target="_blank" rel="noreferrer">
+            <h3>Pac-Man — HTML5 Canvas ↗</h3>
+            <p>A playable Pac-Man built on the HTML5 Canvas — keyboard and touch controls, sound, and a local highscore board. Hosted right here on the site; click to play.</p>
+            <span class="metric">playable in-browser · no install</span>
+            <span class="tags">JavaScript · Canvas · game</span>
+          </a>
         </div>
       </section>
 
@@ -210,21 +214,6 @@
           <div><h4>Languages</h4><p>Python · C++ · Swift · Java · C · SQL · JavaScript · TypeScript · Bash</p></div>
           <div><h4>Backend / Cloud</h4><p>AWS · GraphQL · REST · Flask · Cloudflare Workers · Durable Objects · WebSockets · SQLite</p></div>
           <div><h4>Engineering</h4><p>CI/CD · Testing · Monitoring · Data pipelines · Low-latency systems · pybind11 · NumPy/Pandas</p></div>
-        </div>
-      </section>
-
-      <section id="play" class="block">
-        <div class="block-head"><span class="idx">06</span><h2>Play</h2></div>
-        <p class="muted play-intro">A tiny reflex game — click the signals before they fade. 20 seconds on the clock.</p>
-        <p class="muted play-intro">Or play a full game of <a href="./games/pacman/index.htm">Pac-Man ↗</a> I built in HTML5 canvas.</p>
-        <div class="game-wrap">
-          <div class="game-hud">
-            <span>Score <b id="g-score">0</b></span>
-            <span>Time <b id="g-time">20</b></span>
-            <span>Best <b id="g-best">0</b></span>
-            <button id="g-start" class="game-btn">Start ▸</button>
-          </div>
-          <canvas id="game" width="820" height="360"></canvas>
         </div>
       </section>
     </main>
