@@ -145,7 +145,50 @@ footer { max-width: 1080px; margin: 0 auto; padding: 46px 28px 64px; display: fl
 .foot-links a:hover { color: var(--accent); }
 .copy { font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
 
+/* preloader */
+#preloader {
+  position: fixed; inset: 0; z-index: 100; display: grid; place-items: center;
+  background: radial-gradient(60% 60% at 50% 40%, #12142a, #070812 70%);
+  transition: opacity 0.5s ease;
+}
+#preloader.hidden { opacity: 0; pointer-events: none; }
+.pl-stage { display: grid; place-items: center; gap: 20px; }
+.pl-logo { width: 150px; height: 150px; filter: drop-shadow(0 0 18px rgba(124,140,255,0.4)); }
+.pl-logo .ring { transform-origin: 70px 70px; }
+.pl-logo .r1 { stroke-dasharray: 120 300; animation: plspin 1.6s linear infinite; }
+.pl-logo .r2 { stroke-dasharray: 90 240; animation: plspin 1.2s linear infinite reverse; }
+.pl-logo .r3 { stroke-dasharray: 55 180; animation: plspin 0.9s linear infinite; }
+@keyframes plspin { to { transform: rotate(360deg); } }
+.pl-mono { font: 700 36px var(--serif); letter-spacing: 0.02em; }
+.pl-bar { width: 200px; height: 4px; border-radius: 4px; background: rgba(255,255,255,0.1); overflow: hidden; }
+.pl-bar i { display: block; height: 100%; width: 0; border-radius: 4px; background: linear-gradient(90deg, #7c8cff, #b06bff, #34d3ee); transition: width 0.15s; }
+.pl-pct { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+/* company logos */
+.logos { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 38px; }
+.logo-tile { display: flex; align-items: center; gap: 10px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255,255,255,0.02); }
+.logo-tile img { width: 24px; height: 24px; border-radius: 5px; background: #fff; object-fit: contain; }
+.logo-tile .mono-badge { width: 24px; height: 24px; border-radius: 5px; display: grid; place-items: center; font: 700 12px var(--mono); color: #fff; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+.logo-tile .nm { font-size: 13px; color: var(--muted); }
+
+/* portrait + eyes */
+.portrait-wrap { float: right; width: 210px; margin: 4px 0 20px 28px; text-align: center; }
+.portrait { width: 210px; height: 210px; object-fit: cover; border-radius: 18px; border: 1px solid var(--line); box-shadow: 0 16px 50px rgba(0,0,0,0.5); }
+.eyes { width: 116px; margin-top: 14px; }
+.eyes .sclera { fill: #fff; stroke: var(--line); }
+.eyes .pupil { fill: #0a0b0f; transition: transform 0.05s linear; }
+
+/* mini game */
+.play-intro { margin-bottom: 18px; }
+.game-wrap { border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: rgba(255,255,255,0.02); }
+.game-hud { display: flex; align-items: center; gap: 22px; padding: 14px 18px; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 14px; color: var(--muted); flex-wrap: wrap; }
+.game-hud b { color: var(--fg); }
+.game-btn { margin-left: auto; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff; border: 0; border-radius: 8px; padding: 8px 18px; font-weight: 700; cursor: pointer; font-family: var(--mono); }
+.game-btn:hover { filter: brightness(1.1); }
+#game { display: block; width: 100%; height: auto; cursor: crosshair;
+  background: radial-gradient(circle at 30% 20%, rgba(124,140,255,0.1), transparent 55%), radial-gradient(circle at 75% 80%, rgba(176,107,255,0.1), transparent 55%), #0c0e15; }
+
 @media (max-width: 640px) {
   .nav nav { display: none; }
-  .mail { display: none; }
+  .portrait-wrap { float: none; width: 100%; max-width: 240px; margin: 0 auto 24px; }
 }

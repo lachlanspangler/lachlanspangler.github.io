@@ -100,3 +100,140 @@
   );
   document.querySelectorAll("section[id]").forEach((s) => obs.observe(s));
 })();
+
+// Preloader: animate to 100%, then reveal the page (min ~1.1s, hard cap 2.6s).
+(function () {
+  const pre = document.getElementById("preloader");
+  if (!pre) return;
+  const fill = document.getElementById("pl-fill");
+  const pct = document.getElementById("pl-pct");
+  const t0 = Date.now();
+  let p = 0;
+  const iv = setInterval(() => {
+    p = Math.min(100, p + Math.random() * 8 + 2);
+    fill.style.width = p + "%";
+    pct.textContent = Math.floor(p) + "%";
+    if (p >= 100) clearInterval(iv);
+  }, 70);
+  function done() {
+    if (pre.dataset.done) return;
+    pre.dataset.done = "1";
+    const wait = Math.max(0, 1100 - (Date.now() - t0));
+    setTimeout(() => {
+      clearInterval(iv);
+      fill.style.width = "100%";
+      pct.textContent = "100%";
+      pre.classList.add("hidden");
+      setTimeout(() => pre.remove(), 600);
+    }, wait);
+  }
+  window.addEventListener("load", done);
+  setTimeout(done, 2600);
+})();
+
+// Company logos with graceful fallback: Clearbit -> favicon -> monogram.
+(function () {
+  document.querySelectorAll("#logos > span").forEach((s) => {
+    const { domain, name } = s.dataset;
+    const tile = document.createElement("div");
+    tile.className = "logo-tile";
+    const img = document.createElement("img");
+    img.alt = name;
+    img.loading = "lazy";
+    img.src = `https://logo.clearbit.com/${domain}`;
+    let stage = 0;
+    img.onerror = () => {
+      if (stage === 0) {
+        stage = 1;
+        img.src = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+      } else {
+        const b = document.createElement("div");
+        b.className = "mono-badge";
+        b.textContent = (name[0] || "?").toUpperCase();
+        img.replaceWith(b);
+      }
+    };
+    const nm = document.createElement("span");
+    nm.className = "nm";
+    nm.textContent = name;
+    tile.append(img, nm);
+    s.replaceWith(tile);
+  });
+})();
+
+// Eyes that follow the cursor.
+(function () {
+  const pupils = [...document.querySelectorAll(".eyes .pupil")];
+  if (!pupils.length) return;
+  addEventListener("mousemove", (e) => {
+    pupils.forEach((p) => {
+      const s = p.previousElementSibling; // the sclera
+      const r = s.getBoundingClientRect();
+      const a = Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2));
+      const max = 9;
+      p.setAttribute("transform", `translate(${Math.cos(a) * max} ${Math.sin(a) * max})`);
+    });
+  });
+})();
+
+// Mini reflex/aim game.
+(function () {
+  const cv = document.getElementById("game");
+  if (!cv) return;
+  const ctx = cv.getContext("2d");
+  const W = cv.width, H = cv.height;
+  const colors = ["#7c8cff", "#b06bff", "#34d3ee", "#43e08a", "#fbbf3d"];
+  const $ = (id) => document.getElementById(id);
+  const best = () => +(localStorage.getItem("ls-aim-best") || 0);
+  let targets = [], score = 0, time = 20, running = false, timer, spawner, raf;
+  $("g-best").textContent = best();
+
+  function spawn() {
+    const r = 18 + Math.random() * 16;
+    targets.push({ x: r + Math.random() * (W - 2 * r), y: r + Math.random() * (H - 2 * r), r, born: Date.now(), life: 1100 + Math.random() * 700, c: colors[(Math.random() * colors.length) | 0] });
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const now = Date.now();
+    targets = targets.filter((t) => now - t.born < t.life);
+    targets.forEach((t) => {
+      const age = (now - t.born) / t.life, rr = t.r * (1 - age * 0.3);
+      ctx.globalAlpha = 1 - age * 0.6;
+      ctx.fillStyle = t.c;
+      ctx.beginPath(); ctx.arc(t.x, t.y, rr, 0, 7); ctx.fill();
+      ctx.globalAlpha = 1; ctx.lineWidth = 2; ctx.strokeStyle = "rgba(255,255,255,.6)";
+      ctx.beginPath(); ctx.arc(t.x, t.y, rr, 0, 7); ctx.stroke();
+    });
+    if (running) raf = requestAnimationFrame(draw);
+  }
+  cv.addEventListener("click", (e) => {
+    if (!running) return;
+    const rect = cv.getBoundingClientRect();
+    const mx = (e.clientX - rect.left) * (W / rect.width);
+    const my = (e.clientY - rect.top) * (H / rect.height);
+    for (let i = targets.length - 1; i >= 0; i--) {
+      if (Math.hypot(mx - targets[i].x, my - targets[i].y) <= targets[i].r) {
+        targets.splice(i, 1); score++; $("g-score").textContent = score; break;
+      }
+    }
+  });
+  function start() {
+    if (running) return;
+    running = true; score = 0; time = 20; targets = [];
+    $("g-score").textContent = 0; $("g-time").textContent = 20;
+    timer = setInterval(() => { $("g-time").textContent = --time; if (time <= 0) end(); }, 1000);
+    spawner = setInterval(spawn, 620); spawn(); draw();
+  }
+  function end() {
+    running = false; clearInterval(timer); clearInterval(spawner); cancelAnimationFrame(raf);
+    if (score > best()) { localStorage.setItem("ls-aim-best", score); $("g-best").textContent = score; }
+    ctx.fillStyle = "rgba(10,11,15,.72)"; ctx.fillRect(0, 0, W, H);
+    ctx.textAlign = "center"; ctx.fillStyle = "#ecedf2"; ctx.font = "700 34px Georgia, serif";
+    ctx.fillText(`Score ${score}`, W / 2, H / 2 - 4);
+    ctx.font = "14px monospace"; ctx.fillStyle = "#8b90a3";
+    ctx.fillText("Press Start to play again", W / 2, H / 2 + 26);
+  }
+  $("g-start").addEventListener("click", start);
+  ctx.textAlign = "center"; ctx.fillStyle = "#8b90a3"; ctx.font = "15px monospace";
+  ctx.fillText("Press Start ▸", W / 2, H / 2);
+})();
