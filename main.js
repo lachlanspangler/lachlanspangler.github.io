@@ -187,34 +187,3 @@
     requestAnimationFrame(tick);
   })();
 })();
-
-// Play embedded games in an in-page modal (iframe) instead of a new tab.
-(function () {
-  const modal = document.getElementById("game-modal");
-  const frame = document.getElementById("game-frame");
-  const openLink = document.getElementById("game-open");
-  const closeBtn = document.getElementById("game-close");
-  if (!modal || !frame) return;
-
-  function open(url) {
-    frame.src = url;
-    if (openLink) openLink.href = url;
-    modal.hidden = false;
-    document.body.style.overflow = "hidden";
-  }
-  function close() {
-    modal.hidden = true;
-    frame.src = "about:blank"; // stop game audio/loop
-    document.body.style.overflow = "";
-  }
-
-  document.querySelectorAll(".game-card").forEach((card) => {
-    card.addEventListener("click", (e) => {
-      e.preventDefault();
-      open(card.dataset.game || card.getAttribute("href"));
-    });
-  });
-  if (closeBtn) closeBtn.addEventListener("click", close);
-  modal.addEventListener("click", (e) => { if (e.target === modal) close(); });
-  addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) close(); });
-})();

@@ -171,12 +171,13 @@
             <span class="metric">walk-forward validated · sim-tested</span>
             <span class="tags">modeling · simulation · backtesting</span>
           </a>
-          <a class="card game-card" href="./games/pacman/index.htm" data-game="./games/pacman/index.htm">
-            <h3>Pac-Man — HTML5 Canvas ▶</h3>
-            <p>A playable Pac-Man built on the HTML5 Canvas — keyboard and touch controls, sound, and a local highscore board. Hosted right here on the site; click to play.</p>
-            <span class="metric">playable in-browser · no install</span>
-            <span class="tags">JavaScript · Canvas · game</span>
-          </a>
+        </div>
+        <div class="game-embed">
+          <div class="game-embed-bar">
+            <span class="game-embed-title">Pac-Man — HTML5 Canvas ▶ <span class="game-embed-sub">playable in-browser · click to play</span></span>
+            <a href="./games/pacman/index.htm" target="_blank" rel="noreferrer">Open full screen ↗</a>
+          </div>
+          <iframe class="game-embed-frame" src="./games/pacman/index.htm" title="Pac-Man — HTML5 Canvas" loading="lazy" allow="autoplay"></iframe>
         </div>
       </section>
 
@@ -224,20 +225,6 @@
         </div>
       </section>
     </main>
-
-    <!-- In-page game player -->
-    <div id="game-modal" class="game-modal" hidden>
-      <div class="game-modal-inner">
-        <div class="game-modal-bar">
-          <span class="game-modal-title">Pac-Man — HTML5 Canvas</span>
-          <div class="game-modal-actions">
-            <a id="game-open" href="./games/pacman/index.htm" target="_blank" rel="noreferrer">Open in new tab ↗</a>
-            <button id="game-close" type="button" aria-label="Close game">✕</button>
-          </div>
-        </div>
-        <div class="game-frame-wrap"><iframe id="game-frame" title="Pac-Man" allow="autoplay"></iframe></div>
-      </div>
-    </div>
 
     <footer id="contact">
       <div class="foot-links">
