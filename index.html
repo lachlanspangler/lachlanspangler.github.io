@@ -19,8 +19,22 @@
         <a href="#education">Education</a>
         <a href="#about">About</a>
       </nav>
-      <a class="mail" href="mailto:lachlan.spangler@gmail.com">lachlan.spangler@gmail.com ↗</a>
+      <button class="index-btn" id="index-open" aria-label="Open index">Index <span>↗</span></button>
     </header>
+
+    <div class="index-overlay" id="index-overlay" hidden>
+      <button class="index-close" id="index-close">Close ×</button>
+      <p class="eyebrow">Index / 2026</p>
+      <ol class="index-list">
+        <li><a href="#work"><span class="n">01</span> Work <em>↗</em></a></li>
+        <li><a href="#projects"><span class="n">02</span> Projects <em>↗</em></a></li>
+        <li><a href="#awards"><span class="n">03</span> Awards <em>↗</em></a></li>
+        <li><a href="#education"><span class="n">04</span> Education <em>↗</em></a></li>
+        <li><a href="#about"><span class="n">05</span> About <em>↗</em></a></li>
+        <li><a href="#contact"><span class="n">06</span> Contact <em>↗</em></a></li>
+      </ol>
+      <a class="index-mail" href="mailto:lachlan.spangler@gmail.com">lachlan.spangler@gmail.com ↗</a>
+    </div>
 
     <main>
       <section id="top" class="hero">
@@ -85,26 +99,31 @@
           <a class="card" href="https://github.com/lachlanspangler/hft-matching-engine" target="_blank" rel="noreferrer">
             <h3>hft-matching-engine ↗</h3>
             <p>Low-latency C++20 limit-order-book engine with a lock-free SPSC ring and a latency-benchmark harness — 2.1× throughput over the baseline and a measured p50/p99/p99.9 tick-to-trade.</p>
+            <span class="metric">2.1× throughput · p50 ~84 ns tick-to-trade</span>
             <span class="tags">C++ · lock-free · benchmarking</span>
           </a>
           <a class="card" href="https://github.com/lachlanspangler/market-maker" target="_blank" rel="noreferrer">
             <h3>Market Making Arena ↗</h3>
             <p>Multiplayer market-making game on Cloudflare Workers/Durable Objects — WebSocket turns, matchmaking, reconnect, and self-play-trained RL bots served from KV.</p>
+            <span class="metric">self-play RL bots · 10k-scenario pool</span>
             <span class="tags">Workers · WebSockets · RL</span>
           </a>
           <a class="card" href="https://github.com/lachlanspangler/OrderBookSim" target="_blank" rel="noreferrer">
             <h3>OrderBookSim ↗</h3>
             <p>C++ price-time-priority order book with Python bindings, exchange/market-data latency modeling, and TrueFX/Hawkes replay. Beat TWAP on 3/4 FX pairs with ~100% completion.</p>
+            <span class="metric">beat TWAP on 3/4 FX pairs</span>
             <span class="tags">C++ · pybind11 · execution</span>
           </a>
           <a class="card" href="https://github.com/lachlanspangler/job-finder" target="_blank" rel="noreferrer">
             <h3>Job Finder ↗</h3>
             <p>Daily scanner for software &amp; quant roles across 44 top firms via the Greenhouse/Ashby/Lever APIs, with a live dashboard and self-updating digest.</p>
+            <span class="metric">44 firms · ~1,300 roles scanned daily</span>
             <span class="tags">Python · static site · automation</span>
           </a>
           <a class="card" href="https://github.com/lachlanspangler" target="_blank" rel="noreferrer">
             <h3>Algory Capital — Quant Team Lead ↗</h3>
             <p>Managed $200K of Emory's endowment in the Quantitative Division — 75% L/S hedged equity, 25% global-macro leveraged ETFs/options.</p>
+            <span class="metric">$200K endowment managed</span>
             <span class="tags">portfolio · macro · L/S equity</span>
           </a>
         </div>

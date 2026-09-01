@@ -68,6 +68,20 @@
   }
 })();
 
+// Full-screen index overlay.
+(function () {
+  const overlay = document.getElementById("index-overlay");
+  const open = document.getElementById("index-open");
+  const close = document.getElementById("index-close");
+  if (!overlay || !open) return;
+  const show = () => { overlay.hidden = false; document.body.style.overflow = "hidden"; };
+  const hide = () => { overlay.hidden = true; document.body.style.overflow = ""; };
+  open.addEventListener("click", show);
+  close.addEventListener("click", hide);
+  overlay.querySelectorAll(".index-list a").forEach((a) => a.addEventListener("click", hide));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") hide(); });
+})();
+
 // Highlight the active section in the nav as you scroll.
 (function () {
   const links = [...document.querySelectorAll(".nav nav a")];
