@@ -161,19 +161,31 @@
   });
 })();
 
-// Eyes that follow the cursor.
+// Eyes that follow the cursor (rAF loop so it also tracks on scroll/resize).
 (function () {
-  const pupils = [...document.querySelectorAll(".eyes .pupil")];
-  if (!pupils.length) return;
-  addEventListener("mousemove", (e) => {
-    pupils.forEach((p) => {
-      const s = p.previousElementSibling; // the sclera
-      const r = s.getBoundingClientRect();
-      const a = Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2));
-      const max = 9;
-      p.setAttribute("transform", `translate(${Math.cos(a) * max} ${Math.sin(a) * max})`);
+  const eyes = document.querySelector(".eyes");
+  if (!eyes) return;
+  const pairs = [...eyes.querySelectorAll("g")].map((g) => ({
+    sclera: g.querySelector(".sclera"),
+    pupil: g.querySelector(".pupil"),
+  }));
+  if (!pairs.length) return;
+  let mx = innerWidth / 2, my = innerHeight / 2;
+  addEventListener("mousemove", (e) => { mx = e.clientX; my = e.clientY; });
+  addEventListener("touchmove", (e) => {
+    if (e.touches[0]) { mx = e.touches[0].clientX; my = e.touches[0].clientY; }
+  }, { passive: true });
+  (function tick() {
+    pairs.forEach(({ sclera, pupil }) => {
+      const r = sclera.getBoundingClientRect();
+      if (!r.width) return;
+      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      const ang = Math.atan2(my - cy, mx - cx);
+      const reach = (+sclera.getAttribute("r") || 20) * 0.45;
+      pupil.setAttribute("transform", `translate(${Math.cos(ang) * reach} ${Math.sin(ang) * reach})`);
     });
-  });
+    requestAnimationFrame(tick);
+  })();
 })();
 
 // Mini reflex/aim game.
