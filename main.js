@@ -101,34 +101,85 @@
   document.querySelectorAll("section[id]").forEach((s) => obs.observe(s));
 })();
 
-// Preloader: animate to 100%, then reveal the page (min ~1.1s, hard cap 2.6s).
+// Boot-sequence preloader, then let the page fall into place.
 (function () {
+  document.documentElement.classList.add("js");
   const pre = document.getElementById("preloader");
-  if (!pre) return;
-  const fill = document.getElementById("pl-fill");
-  const pct = document.getElementById("pl-pct");
-  const t0 = Date.now();
-  let p = 0;
-  const iv = setInterval(() => {
-    p = Math.min(100, p + Math.random() * 8 + 2);
-    fill.style.width = p + "%";
-    pct.textContent = Math.floor(p) + "%";
-    if (p >= 100) clearInterval(iv);
-  }, 70);
-  function done() {
-    if (pre.dataset.done) return;
+  const log = document.getElementById("boot-log");
+  function finish() {
+    if (!pre || pre.dataset.done) { document.body.classList.add("loaded"); return; }
     pre.dataset.done = "1";
-    const wait = Math.max(0, 1100 - (Date.now() - t0));
-    setTimeout(() => {
-      clearInterval(iv);
-      fill.style.width = "100%";
-      pct.textContent = "100%";
-      pre.classList.add("hidden");
-      setTimeout(() => pre.remove(), 600);
-    }, wait);
+    pre.classList.add("hidden");
+    document.body.classList.add("loaded");
+    setTimeout(() => pre.remove(), 700);
   }
-  window.addEventListener("load", done);
-  setTimeout(done, 2600);
+  if (!pre || !log) { document.body.classList.add("loaded"); return; }
+  const lines = [
+    "> booting lachlanspangler.io",
+    "> loading modules ............ ok",
+    "> mounting /work /projects /about",
+    "> linking market-data feed ... ok",
+    "> warming caches ............. ok",
+    "> ready ✓",
+  ];
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    log.textContent = lines.join("\n");
+    setTimeout(finish, 200);
+    return;
+  }
+  let i = 0;
+  (function nextLine() {
+    if (i >= lines.length) { setTimeout(finish, 400); return; }
+    log.textContent += (i ? "\n" : "") + lines[i++];
+    setTimeout(nextLine, 165);
+  })();
+  setTimeout(finish, 3200); // hard cap
+})();
+
+// Live status line (typewriter cycle).
+(function () {
+  const el = document.getElementById("status");
+  if (!el) return;
+  const msgs = [
+    "open to quant & SWE roles",
+    "based in Minneapolis, MN",
+    "shipping at Amazon Global Logistics",
+    "building low-latency systems",
+  ];
+  let mi = 0, ci = 0, del = false;
+  (function type() {
+    const m = msgs[mi];
+    el.textContent = m.slice(0, ci);
+    if (!del && ci < m.length) { ci++; setTimeout(type, 45); }
+    else if (!del) { del = true; setTimeout(type, 1600); }
+    else if (ci > 0) { ci--; setTimeout(type, 22); }
+    else { del = false; mi = (mi + 1) % msgs.length; setTimeout(type, 200); }
+  })();
+})();
+
+// Live Minneapolis clock.
+(function () {
+  const el = document.getElementById("clock");
+  if (!el) return;
+  const fmt = () => new Date().toLocaleTimeString("en-US", { timeZone: "America/Chicago", hour12: false });
+  const tick = () => { el.textContent = fmt(); };
+  tick();
+  setInterval(tick, 1000);
+})();
+
+// Magnetic buttons/links.
+(function () {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  document.querySelectorAll(".explore, .index-btn, .nav nav a, .mark").forEach((el) => {
+    el.style.transition = "transform 0.15s ease";
+    el.addEventListener("mousemove", (e) => {
+      const r = el.getBoundingClientRect();
+      const x = e.clientX - (r.left + r.width / 2);
+      const y = e.clientY - (r.top + r.height / 2);
+      el.style.transform = `translate(${x * 0.3}px, ${y * 0.4}px)`;
+    });
+    el.addEventListener("mouseleave", () => { el.style.transform = ""; });
+  });
 })();
 
 // Company logos with graceful fallback: Clearbit -> favicon -> monogram.

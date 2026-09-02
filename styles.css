@@ -289,3 +289,33 @@ footer { max-width: 1080px; margin: 0 auto; padding: 46px 28px 64px; display: fl
 .cmdk-list li.sel, .cmdk-list li:hover { background: rgba(124,140,255,0.16); }
 .cmdk-empty { padding: 20px; color: var(--muted); text-align: center; font-size: 14px; }
 .cmdk-hint { padding: 10px 16px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 11px; color: var(--muted); }
+
+/* boot-sequence preloader */
+.boot { width: min(520px, 88vw); font-family: var(--mono); }
+.boot-head { display: flex; align-items: center; gap: 7px; padding: 10px 14px; background: #11162a;
+  border: 1px solid var(--line); border-bottom: 0; border-radius: 12px 12px 0 0; }
+.boot-head .d { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.boot-head .d.r { background: #ff5f57; } .boot-head .d.y { background: #febc2e; } .boot-head .d.g { background: #28c840; }
+.boot-title { margin-left: 8px; color: var(--muted); font-size: 12px; }
+.boot-log { margin: 0; padding: 16px 16px 20px; min-height: 152px; background: #0b1020;
+  border: 1px solid var(--line); border-radius: 0 0 12px 12px; color: #8affc1; font-size: 13px;
+  line-height: 1.75; white-space: pre-wrap; }
+.boot-log::after { content: "▍"; color: var(--accent); animation: caret 1s step-end infinite; }
+
+/* "fall into place" entrance (gated on JS so no-JS still shows content) */
+html.js .nav { opacity: 0; transform: translateY(-14px); }
+html.js .hero > * { opacity: 0; transform: translateY(22px); }
+body.loaded .nav { opacity: 1; transform: none; transition: opacity 0.5s ease, transform 0.5s ease; }
+body.loaded .hero > * { opacity: 1; transform: none;
+  transition: opacity 0.6s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
+body.loaded .hero > *:nth-child(1) { transition-delay: 0.06s; }
+body.loaded .hero > *:nth-child(2) { transition-delay: 0.14s; }
+body.loaded .hero > *:nth-child(3) { transition-delay: 0.22s; }
+body.loaded .hero > *:nth-child(4) { transition-delay: 0.30s; }
+body.loaded .hero > *:nth-child(5) { transition-delay: 0.38s; }
+body.loaded .hero > *:nth-child(6) { transition-delay: 0.46s; }
+
+/* status line + clock */
+.status-line { font-family: var(--mono); color: var(--muted); font-size: 14px; margin-top: 16px; }
+#status { color: var(--fg); }
+.clock b { color: var(--accent); font-variant-numeric: tabular-nums; }

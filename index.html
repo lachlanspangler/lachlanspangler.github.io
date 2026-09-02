@@ -8,25 +8,14 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <!-- Over-engineered animated preloader -->
+    <!-- Boot-sequence preloader -->
     <div id="preloader">
-      <div class="pl-stage">
-        <svg class="pl-logo" viewBox="0 0 140 140" aria-hidden="true">
-          <defs>
-            <linearGradient id="pg1" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stop-color="#7c8cff"/><stop offset="0.5" stop-color="#b06bff"/><stop offset="1" stop-color="#34d3ee"/>
-            </linearGradient>
-            <linearGradient id="pg2" x1="1" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#43e08a"/><stop offset="1" stop-color="#fbbf3d"/>
-            </linearGradient>
-          </defs>
-          <circle class="ring r1" cx="70" cy="70" r="60" fill="none" stroke="url(#pg1)" stroke-width="3" stroke-linecap="round"/>
-          <circle class="ring r2" cx="70" cy="70" r="48" fill="none" stroke="url(#pg2)" stroke-width="2.5" stroke-linecap="round"/>
-          <circle class="ring r3" cx="70" cy="70" r="36" fill="none" stroke="url(#pg1)" stroke-width="2" stroke-linecap="round"/>
-          <text x="70" y="82" text-anchor="middle" class="pl-mono" fill="url(#pg1)">LS</text>
-        </svg>
-        <div class="pl-bar"><i id="pl-fill"></i></div>
-        <div class="pl-pct" id="pl-pct">0%</div>
+      <div class="boot">
+        <div class="boot-head">
+          <span class="d r"></span><span class="d y"></span><span class="d g"></span>
+          <span class="boot-title">lachlan@spangler — /</span>
+        </div>
+        <pre id="boot-log" class="boot-log"></pre>
       </div>
     </div>
 
@@ -76,6 +65,7 @@
           infrastructure, and market-microstructure tooling, and I like the
           places where clean engineering meets markets.
         </p>
+        <p class="status-line">// <span id="status"></span><span class="caret">▍</span></p>
         <a class="explore" href="#work">Explore ↘</a>
       </section>
 
@@ -245,7 +235,7 @@
         <a href="https://github.com/lachlanspangler" target="_blank" rel="noreferrer">GitHub ↗</a>
         <a href="https://linkedin.com/in/lachlan-spangler" target="_blank" rel="noreferrer">LinkedIn ↗</a>
       </div>
-      <p class="copy">© 2026 Lachlan Spangler</p>
+      <p class="copy">© 2026 Lachlan Spangler · <span class="clock">Minneapolis <b id="clock">--:--:--</b></span></p>
     </footer>
 
     <script src="./main.js" defer></script>
