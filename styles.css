@@ -215,9 +215,12 @@ footer { max-width: 1080px; margin: 0 auto; padding: 46px 28px 64px; display: fl
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .portrait:hover { transform: translateY(-4px) rotate(-1deg) scale(1.02); box-shadow: 0 26px 70px rgba(176, 107, 255, 0.4); }
-.eyes { width: 150px; margin-top: 16px; }
-.eyes .sclera { fill: #fff; stroke: var(--line); }
-.eyes .pupil { fill: #0a0b0f; transition: transform 0.05s linear; }
+.eyes { width: 200px; margin-top: 20px; cursor: pointer; transform-origin: center 52%;
+  filter: drop-shadow(0 8px 22px rgba(124, 140, 255, 0.4)); }
+.eyes .sclera { fill: #fff; stroke: rgba(124, 140, 255, 0.55); stroke-width: 1.5; }
+.eyes .pupil { fill: #0a0b0f; transition: transform 0.06s linear; }
+.eyes.blink { animation: eyeblink 0.32s ease; }
+@keyframes eyeblink { 0%, 100% { transform: scaleY(1); } 45%, 55% { transform: scaleY(0.08); } }
 
 /* mini game */
 .play-intro { margin-bottom: 18px; }
