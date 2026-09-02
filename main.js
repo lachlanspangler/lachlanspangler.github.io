@@ -176,12 +176,6 @@
     if (e.touches[0]) { mx = e.touches[0].clientX; my = e.touches[0].clientY; }
   }, { passive: true });
 
-  // Blink on hover + occasional idle blinks.
-  function blink() { eyes.classList.remove("blink"); void eyes.offsetWidth; eyes.classList.add("blink"); }
-  eyes.addEventListener("mouseenter", blink);
-  eyes.addEventListener("animationend", () => eyes.classList.remove("blink"));
-  setInterval(() => { if (Math.random() < 0.5) blink(); }, 4200);
-
   (function tick() {
     pairs.forEach(({ sclera, pupil }) => {
       const r = sclera.getBoundingClientRect();

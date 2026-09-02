@@ -219,8 +219,6 @@ footer { max-width: 1080px; margin: 0 auto; padding: 46px 28px 64px; display: fl
   filter: drop-shadow(0 8px 22px rgba(124, 140, 255, 0.4)); }
 .eyes .sclera { fill: #fff; stroke: rgba(124, 140, 255, 0.55); stroke-width: 1.5; }
 .eyes .pupil { fill: #0a0b0f; transition: transform 0.06s linear; }
-.eyes.blink { animation: eyeblink 0.32s ease; }
-@keyframes eyeblink { 0%, 100% { transform: scaleY(1); } 45%, 55% { transform: scaleY(0.08); } }
 
 /* mini game */
 .play-intro { margin-bottom: 18px; }
