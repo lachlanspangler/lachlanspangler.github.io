@@ -277,43 +277,27 @@
   });
 })();
 
-// KPI count-up + live GitHub stats.
+// Decode/scramble section headings when they scroll into view.
 (function () {
-  const USER = "lachlanspangler";
-  function countUp(el, target, dec) {
-    const dur = 1000, t0 = performance.now();
-    (function step(now) {
-      const p = Math.min(1, (now - t0) / dur);
-      const v = target * (1 - Math.pow(1 - p, 3));
-      el.textContent = dec ? v.toFixed(dec) : Math.round(v).toLocaleString();
-      if (p < 1) requestAnimationFrame(step);
-    })(t0);
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const glyphs = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/#*<>_%";
+  function scramble(el) {
+    const text = el.dataset.text || el.textContent;
+    el.dataset.text = text;
+    let frame = 0;
+    const settle = text.split("").map((_, i) => 6 + i * 2);
+    const total = settle[settle.length - 1] + 4;
+    const id = setInterval(() => {
+      el.textContent = text.split("").map((ch, i) => {
+        if (ch === " ") return " ";
+        if (frame >= settle[i]) return text[i];
+        return glyphs[(Math.random() * glyphs.length) | 0];
+      }).join("");
+      if (frame++ >= total) { clearInterval(id); el.textContent = text; }
+    }, 30);
   }
-  const cardsEl = document.querySelector("[data-cards]");
-  if (cardsEl) cardsEl.dataset.target = document.querySelectorAll(".cards .card").length;
-
-  const band = document.getElementById("kpis");
-  let done = false;
-  if (band) {
-    const obs = new IntersectionObserver((ents) => {
-      ents.forEach((e) => {
-        if (e.isIntersecting && !done) {
-          done = true;
-          document.querySelectorAll("#kpis .kpi-num[data-target]").forEach((el) =>
-            countUp(el, parseFloat(el.dataset.target), +el.dataset.dec || 0));
-          obs.disconnect();
-        }
-      });
-    }, { rootMargin: "0px 0px -20% 0px" });
-    obs.observe(band);
-  }
-
-  const repoEl = document.querySelector('[data-gh="repos"]');
-  const commitEl = document.querySelector('[data-gh="commits"]');
-  fetch(`https://api.github.com/users/${USER}`)
-    .then((r) => r.json()).then((d) => { if (repoEl && typeof d.public_repos === "number") countUp(repoEl, d.public_repos, 0); })
-    .catch(() => {});
-  fetch(`https://api.github.com/search/commits?q=author:${USER}+author-date:>=2026-01-01&per_page=1`)
-    .then((r) => r.json()).then((d) => { if (commitEl && typeof d.total_count === "number") countUp(commitEl, d.total_count, 0); })
-    .catch(() => {});
+  const obs = new IntersectionObserver((ents) => {
+    ents.forEach((e) => { if (e.isIntersecting) { scramble(e.target); obs.unobserve(e.target); } });
+  }, { rootMargin: "0px 0px -15% 0px" });
+  document.querySelectorAll(".block-head h2").forEach((h) => obs.observe(h));
 })();
