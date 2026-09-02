@@ -154,6 +154,15 @@ main { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
 
 /* education + about */
 .edu .e-role h3 { font-size: 19px; }
+.cert {
+  display: flex; align-items: center; gap: 18px; margin-top: 24px; padding: 16px 18px;
+  border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,0.02);
+  text-decoration: none; color: inherit; transition: transform 0.14s, border-color 0.14s, box-shadow 0.14s;
+}
+.cert:hover { transform: translateY(-3px); border-color: rgba(124,140,255,0.55); box-shadow: 0 14px 36px rgba(124,140,255,0.16); }
+.cert-logo { flex: 0 0 auto; width: 84px; height: 84px; object-fit: contain; background: #fff; border-radius: 12px; padding: 8px; }
+.cert-body h3 { font-size: 16px; font-weight: 650; }
+@media (max-width: 640px) { .cert-logo { width: 60px; height: 60px; } }
 .muted { color: var(--muted); font-size: 14px; margin-top: 8px; }
 .about { max-width: 720px; color: #c7cbd8; font-size: 17px; }
 .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px; margin-top: 32px; }
