@@ -188,3 +188,132 @@
     requestAnimationFrame(tick);
   })();
 })();
+
+// Scroll reveal.
+(function () {
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const els = document.querySelectorAll(".block, .kpis, .card");
+  if (reduced) { els.forEach((e) => e.classList.add("reveal", "in")); return; }
+  els.forEach((e) => e.classList.add("reveal"));
+  const obs = new IntersectionObserver((ents) => {
+    ents.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); obs.unobserve(e.target); } });
+  }, { rootMargin: "0px 0px -10% 0px" });
+  els.forEach((e) => obs.observe(e));
+})();
+
+// 3D card tilt toward the cursor.
+(function () {
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  document.querySelectorAll(".card").forEach((card) => {
+    card.addEventListener("mousemove", (e) => {
+      const r = card.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - 0.5;
+      const py = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `translateY(-4px) rotateX(${-py * 7}deg) rotateY(${px * 7}deg)`;
+    });
+    card.addEventListener("mouseleave", () => { card.style.transform = ""; });
+  });
+})();
+
+// Rotating role (typewriter).
+(function () {
+  const el = document.getElementById("role");
+  if (!el) return;
+  const roles = ["low-latency systems", "matching engines", "trading infrastructure", "market-microstructure tooling"];
+  let ri = 0, ci = 0, deleting = false;
+  (function type() {
+    const word = roles[ri];
+    el.textContent = word.slice(0, ci);
+    if (!deleting && ci < word.length) { ci++; setTimeout(type, 55); }
+    else if (!deleting) { deleting = true; setTimeout(type, 1400); }
+    else if (ci > 0) { ci--; setTimeout(type, 28); }
+    else { deleting = false; ri = (ri + 1) % roles.length; setTimeout(type, 250); }
+  })();
+})();
+
+// Command palette (Cmd/Ctrl-K).
+(function () {
+  const modal = document.getElementById("cmdk");
+  const input = document.getElementById("cmdk-input");
+  const list = document.getElementById("cmdk-list");
+  if (!modal || !input || !list) return;
+  const items = [
+    { label: "Work", href: "#work" },
+    { label: "Projects", href: "#projects" },
+    { label: "Awards", href: "#awards" },
+    { label: "Education", href: "#education" },
+    { label: "About", href: "#about" },
+    { label: "GitHub", href: "https://github.com/lachlanspangler", ext: true },
+    { label: "LinkedIn", href: "https://linkedin.com/in/lachlan-spangler", ext: true },
+    { label: "Email", href: "mailto:lachlan.spangler@gmail.com", ext: true },
+    { label: "hft-matching-engine", href: "https://github.com/lachlanspangler/hft-matching-engine", ext: true },
+    { label: "market-maker", href: "https://github.com/lachlanspangler/market-maker", ext: true },
+    { label: "OrderBookSim", href: "https://github.com/lachlanspangler/OrderBookSim", ext: true },
+    { label: "job-finder", href: "https://github.com/lachlanspangler/job-finder", ext: true },
+  ];
+  let filtered = items.slice(), sel = 0;
+  function render() {
+    list.innerHTML = filtered.length
+      ? filtered.map((it, i) => `<li class="${i === sel ? "sel" : ""}" data-i="${i}">${it.label}<span class="a">${it.ext ? "↗" : "↵"}</span></li>`).join("")
+      : `<div class="cmdk-empty">No matches</div>`;
+  }
+  function open() { modal.hidden = false; input.value = ""; filtered = items.slice(); sel = 0; render(); input.focus(); }
+  function close() { modal.hidden = true; }
+  function go(it) { if (!it) return; close(); if (it.ext) window.open(it.href, "_blank", "noopener"); else location.hash = it.href; }
+  input.addEventListener("input", () => {
+    const q = input.value.toLowerCase();
+    filtered = items.filter((it) => it.label.toLowerCase().includes(q));
+    sel = 0; render();
+  });
+  list.addEventListener("click", (e) => { const li = e.target.closest("li"); if (li) go(filtered[+li.dataset.i]); });
+  modal.addEventListener("click", (e) => { if (e.target === modal) close(); });
+  addEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") { e.preventDefault(); modal.hidden ? open() : close(); return; }
+    if (modal.hidden) return;
+    if (e.key === "Escape") close();
+    else if (e.key === "ArrowDown") { e.preventDefault(); sel = Math.min(sel + 1, filtered.length - 1); render(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); sel = Math.max(sel - 1, 0); render(); }
+    else if (e.key === "Enter") { e.preventDefault(); go(filtered[sel]); }
+  });
+})();
+
+// KPI count-up + live GitHub stats.
+(function () {
+  const USER = "lachlanspangler";
+  function countUp(el, target, dec) {
+    const dur = 1000, t0 = performance.now();
+    (function step(now) {
+      const p = Math.min(1, (now - t0) / dur);
+      const v = target * (1 - Math.pow(1 - p, 3));
+      el.textContent = dec ? v.toFixed(dec) : Math.round(v).toLocaleString();
+      if (p < 1) requestAnimationFrame(step);
+    })(t0);
+  }
+  const cardsEl = document.querySelector("[data-cards]");
+  if (cardsEl) cardsEl.dataset.target = document.querySelectorAll(".cards .card").length;
+
+  const band = document.getElementById("kpis");
+  let done = false;
+  if (band) {
+    const obs = new IntersectionObserver((ents) => {
+      ents.forEach((e) => {
+        if (e.isIntersecting && !done) {
+          done = true;
+          document.querySelectorAll("#kpis .kpi-num[data-target]").forEach((el) =>
+            countUp(el, parseFloat(el.dataset.target), +el.dataset.dec || 0));
+          obs.disconnect();
+        }
+      });
+    }, { rootMargin: "0px 0px -20% 0px" });
+    obs.observe(band);
+  }
+
+  const repoEl = document.querySelector('[data-gh="repos"]');
+  const commitEl = document.querySelector('[data-gh="commits"]');
+  fetch(`https://api.github.com/users/${USER}`)
+    .then((r) => r.json()).then((d) => { if (repoEl && typeof d.public_repos === "number") countUp(repoEl, d.public_repos, 0); })
+    .catch(() => {});
+  fetch(`https://api.github.com/search/commits?q=author:${USER}+author-date:>=2026-01-01&per_page=1`)
+    .then((r) => r.json()).then((d) => { if (commitEl && typeof d.total_count === "number") countUp(commitEl, d.total_count, 0); })
+    .catch(() => {});
+})();

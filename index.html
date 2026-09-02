@@ -58,16 +58,33 @@
       <a class="index-mail" href="mailto:lachlan.spangler@gmail.com">lachlan.spangler@gmail.com ↗</a>
     </div>
 
+    <div class="cmdk" id="cmdk" hidden>
+      <div class="cmdk-box">
+        <input id="cmdk-input" type="text" placeholder="Jump to a section or link…  (⌘K)" autocomplete="off" spellcheck="false" />
+        <ul class="cmdk-list" id="cmdk-list"></ul>
+        <div class="cmdk-hint">↑ ↓ navigate · ↵ open · esc close</div>
+      </div>
+    </div>
+
     <main>
       <section id="top" class="hero">
         <p class="eyebrow">Index / 2026</p>
         <h1>Software engineer<br />&amp; quantitative developer.</h1>
+        <p class="role-line">building <span id="role" class="role-rot"></span><span class="caret">▍</span></p>
         <p class="lede">
           SDE at Amazon Global Logistics. I build low-latency systems, trading
           infrastructure, and market-microstructure tooling, and I like the
           places where clean engineering meets markets.
         </p>
         <a class="explore" href="#work">Explore ↘</a>
+      </section>
+
+      <section class="kpis" id="kpis" aria-label="At a glance">
+        <div class="kpi"><div class="kpi-num" data-target="3.98" data-dec="2">0</div><div class="kpi-label">GPA</div></div>
+        <div class="kpi"><div class="kpi-num" data-cards="1">0</div><div class="kpi-label">Projects</div></div>
+        <div class="kpi"><div class="kpi-num" data-target="3">0</div><div class="kpi-label">SWE internships</div></div>
+        <div class="kpi"><div class="kpi-num" data-gh="repos">0</div><div class="kpi-label">GitHub repos</div></div>
+        <div class="kpi"><div class="kpi-num" data-gh="commits">0</div><div class="kpi-label">Commits in 2026</div></div>
       </section>
 
       <section id="work" class="block">
